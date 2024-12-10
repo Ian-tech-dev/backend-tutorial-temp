@@ -1,21 +1,39 @@
-//npm - global command .. comes with node 
-//npm  --version
+const {readFile} = require('fs')
 
-// local dependency -use it only in this particular project 
-// npm i >packagename>
-
-//global dependency - use it in any project 
-// npm install -g <packagename>
-
-//package.json - manifest file (stores important info about
-// project or package)
-//manual approach(create package.json in the root,create 
-//properties etc)
-//npm init(step by step, press enter to skip)
-
-//npm init -y (everything default)
+const getText = (path)=>{
+    return new Promise((resolve,reject)=>{
+        readFile(path,'utf-8',(err,data)=>{
+            if(err){
+                reject(err);
+            }else{
+                resolve(data);
+            }
+        })
+    })
+}
 
 
-console.log("Heyy");
+// getText('./content/first.txt')
+// .then(result=>console.log(result))
+// .catch(err=>console.log(err))
+
+
+const start = async()=>{
+    try{
+        const first = await getText('./content/first.txt');
+        const second = await getText('./content/second.txt');
+        console.log(first,second)
+    }
+    catch(err){
+        console.log(err);
+    }
+    
+}
+
+start();
+
+
+
+
 
  
